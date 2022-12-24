@@ -2,11 +2,12 @@ package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.domain.Product;
+import com.example.jejuiiin.mapper.ProductMapper;
 import com.example.jejuiiin.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
-    @Transactional
-    public List<ProductResponse> getProducts() {
+    /* 새 상품 나열하기 */
+    public List<ProductResponse> getNewProducts() {
         List<ProductResponse> list = new ArrayList<>();
         List<Product> products = productRepository.findTop5ByOrderByProductIdDesc();
         for (Product product : products) {
-            list.add(new ProductResponse(product));
+            list.add(productMapper.toResponse(product));
         }
         return list;
     }

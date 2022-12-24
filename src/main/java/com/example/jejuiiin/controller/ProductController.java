@@ -14,12 +14,11 @@ import java.util.List;
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
-    private final ProductRepository productRepository;
     private final ProductService productService;
 
-    //새상품 나열하기
+    /* 새 상품 나열하기 */
     @GetMapping("/newitems")
-    public List<ProductResponse> getProducts(){
-        return productService.getProducts();
+    public List<ProductResponse> getNewProducts(){
+        return productService.getNewProducts();
     }
 }
