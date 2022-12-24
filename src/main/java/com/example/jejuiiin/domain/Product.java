@@ -31,7 +31,7 @@ public class Product {
     private String caption;
 
     @Column(nullable = false)
-    private String medialThumbnailImgUrl;
+    private String mediumThumbnailImgUrl;
 
 	@Column(nullable = false)
 	private String bigThumbnailImgUrl;
@@ -48,13 +48,13 @@ public class Product {
 	private ProductSubCategory subCategory;
 
 	@Builder
-	public Product(String name, int price, String caption, String medialThumbnailImgUrl,
-				   String bigThumbnailImgUrl, String detailImgUrl, ProductCategory category,
-				   ProductSubCategory subCategory) {
+
+	public Product(String name, int price, String caption, String mediumThumbnailImgUrl, String bigThumbnailImgUrl,
+				   String detailImgUrl, ProductCategory category, ProductSubCategory subCategory) {
 		this.name = name;
 		this.price = price;
 		this.caption = caption;
-		this.medialThumbnailImgUrl = medialThumbnailImgUrl;
+		this.mediumThumbnailImgUrl = mediumThumbnailImgUrl;
 		this.bigThumbnailImgUrl = bigThumbnailImgUrl;
 		this.detailImgUrl = detailImgUrl;
 		this.category = category;
