@@ -18,7 +18,7 @@ public class ProductController {
 
     /* 새 상품 나열하기 */
     @GetMapping("/newitems")
-    public List<ProductResponse> getProducts(){
-        return productService.getProducts();
+    public List<ProductResponse> getNewProducts(){
+        return productService.getNewProducts();
     }
 }
