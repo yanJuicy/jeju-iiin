@@ -38,7 +38,6 @@ public class JwtUtil {
     private static final String BEARER_PREFIX = "Bearer ";
     /* 토큰 만료 시간 (분*초*밀리sec) */
     private static final long TOKEN_TIME = 30 * 60 * 1000L;
-    /* 의존성 주입 */
     private final UserDetailsServiceImpl userDetailsServiceImpl;
 
     /* JWT SecretKey */
@@ -69,7 +68,7 @@ public class JwtUtil {
     public String createAccessToken(String loginId) {
         Date date = new Date();
 
-        return BEARER_PREFIX +     /* BEARER 앞에 붙여주기 */
+        return BEARER_PREFIX +
                 Jwts.builder()
                         .setSubject(loginId)     /* subject 부분에 username 넣기 */
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))     /* 만료 시간 */
