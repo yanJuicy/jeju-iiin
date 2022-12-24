@@ -16,7 +16,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public List<ProductResponse> getProducts() {
+    public List<ProductResponse> getNewProducts() {
         List<ProductResponse> list = new ArrayList<>();
         List<Product> products = productRepository.findTop5ByOrderByProductIdDesc();
         for (Product product : products) {
