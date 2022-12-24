@@ -4,7 +4,6 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-security.properties
 
 ### STS ###
 .apt_generated
@@ -40,3 +39,6 @@ out/
 
 ## MySQL
 src/main/resources/application-dev.properties
+
+## Jwt
+src/main/resources/security.properties
