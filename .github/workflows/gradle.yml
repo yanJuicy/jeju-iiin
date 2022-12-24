@@ -29,10 +29,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    # secret 파일 로딩 및 application-dev 생성
+    # db 정보 로딩 및 application-dev 파일 생성
     - uses: actions/checkout@v3
     - run: touch ./src/main/resources/application-dev.properties
     - run: echo "${{ secrets.APPLICATION }}" > ./src/main/resources/application-dev.properties        
+  
+    # jwt secret 로딩 및 securty 파일 생성
+    - run: touch ./src/main/resources/security.properties
+    - run: echo "${{ secrets.JWT }}" > ./src/main/resources/security.properties      
     
     # Gradle 권한 설정
     - name: Grant execute permission for gradlew
