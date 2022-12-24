@@ -30,11 +30,11 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
 
     private void setErrorResponse(HttpServletResponse httpServletResponse,
                                   CustomSecurityException ex) throws IOException{
-        // 1. Json Type으로 반환할 것 명시
+        /* 1. Json Type으로 반환할 것 명시 */
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        // 2. HttpStatus 설정
+        /* 2. HttpStatus 설정 */
         httpServletResponse.setStatus(ex.getExceptionMessage().getStatusCode());
-        // 3. CustomErrorResponse 생성
+        /* 3. CustomErrorResponse 생성 */
         Response<CustomSecurityException> response =
                 new Response<>(ex.getExceptionMessage());
 
