@@ -31,7 +31,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = jwtUtil.resolveToken(request, "authorization");
+        String token = jwtUtil.resolveToken(request, JwtUtil.AUTHORIZATION_ACCESS);
 
         /* Token 유효성 검사 및 인증 */
         if (token == null) {
