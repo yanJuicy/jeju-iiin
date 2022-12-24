@@ -15,7 +15,6 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    @Transactional
     public List<ProductResponse> getNewProducts() {
         List<ProductResponse> list = new ArrayList<>();
         List<Product> products = productRepository.findTop5ByOrderByProductIdDesc();
