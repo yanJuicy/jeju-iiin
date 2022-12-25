@@ -70,7 +70,7 @@ public class JwtUtil {
 
         return BEARER_PREFIX +
                 Jwts.builder()
-                        .setSubject(loginId)     /* subject 부분에 username 넣기 */
+                        .setSubject(loginId)
                         .setExpiration(new Date(date.getTime() + TOKEN_TIME))     /* 만료 시간 */
                         .setIssuedAt(date)     /* 언제 생성되었는지 */
                         .signWith(accessTokenKey, signatureAlgorithm)     /* Key를 어떻게 암호화 할 것인지 */
@@ -82,15 +82,10 @@ public class JwtUtil {
         try {
             Jwts.parserBuilder().setSigningKey(accessTokenKey).build().parseClaimsJws(accessToken);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {
-            log.info("Invalid Access JWT signature, 유효하지 않는 Access JWT 서명 입니다.");
-        } catch (ExpiredJwtException e) {
-            /* 만료된 경우 토큰 재발급 */
-            log.info("Expired Access JWT, 만료된 Access JWT 입니다.");
-        } catch (UnsupportedJwtException e) {
-            log.info("Unsupported Access JWT, 지원되지 않는 Access JWT 입니다.");
-        } catch (IllegalArgumentException e) {
-            log.info("Access JWT claims is empty, 잘못된 Access JWT 입니다.");
+        } catch (SecurityException | MalformedJwtException e) {      /* 유요하지 않는 Access JWT 서명 */
+        } catch (ExpiredJwtException e) {      /* Access JWT 만료 */
+        } catch (UnsupportedJwtException e) {      /* 지원되지 않는 Access JWT */
+        } catch (IllegalArgumentException e) {      /* Access JWT claims가 비어 있을 경우 */
         }
         return false;
     }
