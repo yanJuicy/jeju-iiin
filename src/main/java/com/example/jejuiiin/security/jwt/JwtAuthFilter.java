@@ -25,17 +25,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException, CustomSecurityException {
         String uri = request.getRequestURI();
 
-        /* Login, SignUp, API일 경우 해당 Filter 건너뜀. */
-        if (uri.equals("/api/v1/members/login") || uri.equals("/api/v1/members/signup")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        /* Login, SignUp, API일 경우 해당 Filter 건너뜀. */
+//        if (uri.equals("/api/v1/members/login") || uri.equals("/api/v1/members/signup")) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
 
         String token = jwtUtil.resolveToken(request, JwtUtil.AUTHORIZATION_ACCESS);
 
         /* Token 유효성 검사 및 인증 */
         if (token == null) {
-            throw new CustomSecurityException(TOKEN_NOT_FOUND_MSG);
+            filterChain.doFilter(request, response);
+            return;
         }
 
         if (!jwtUtil.validateAccessToken(token, request, response)) {
