@@ -39,3 +39,6 @@ out/
 
 ## MySQL
 src/main/resources/application-dev.properties
+
+## Jwt
+src/main/resources/security.properties
