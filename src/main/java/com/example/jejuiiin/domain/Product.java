@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,17 +31,32 @@ public class Product {
     private String caption;
 
     @Column(nullable = false)
-    private String thumbnailImgUrl;
+    private String mediumThumbnailImgUrl;
+
+	@Column(nullable = false)
+	private String bigThumbnailImgUrl;
 
     @Column(nullable = false)
     private String detailImgUrl;
 
-    @Builder
-    public Product(String name, int price, String caption, String thumbnailImgUrl, String detailImgUrl) {
-        this.name = name;
-        this.price = price;
-        this.caption = caption;
-        this.thumbnailImgUrl = thumbnailImgUrl;
-        this.detailImgUrl = detailImgUrl;
-    }
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private ProductCategory category;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private ProductSubCategory subCategory;
+
+	@Builder
+	public Product(String name, int price, String caption, String mediumThumbnailImgUrl, String bigThumbnailImgUrl,
+				   String detailImgUrl, ProductCategory category, ProductSubCategory subCategory) {
+		this.name = name;
+		this.price = price;
+		this.caption = caption;
+		this.mediumThumbnailImgUrl = mediumThumbnailImgUrl;
+		this.bigThumbnailImgUrl = bigThumbnailImgUrl;
+		this.detailImgUrl = detailImgUrl;
+		this.category = category;
+		this.subCategory = subCategory;
+	}
 }
