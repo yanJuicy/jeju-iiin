@@ -36,7 +36,7 @@ public class WebSecurityConfig {
         /* 3. Request에 대한 인증/인가 */
         http.authorizeRequests().
                 /* 3-1. Authentication 예외 처리 */
-                anyRequest().authenticated();
+                anyRequest().permitAll();
 
         /* 4. Filter 등록 */
         /* 4-1. JWT Filter 등록 */
