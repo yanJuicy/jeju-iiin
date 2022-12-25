@@ -48,7 +48,6 @@ public class Product {
 	private ProductSubCategory subCategory;
 
 	@Builder
-
 	public Product(String name, int price, String caption, String mediumThumbnailImgUrl, String bigThumbnailImgUrl,
 				   String detailImgUrl, ProductCategory category, ProductSubCategory subCategory) {
 		this.name = name;
