@@ -30,11 +30,8 @@ public class Product {
     @Column(nullable = false)
     private String caption;
 
-    @Column(nullable = false)
-    private String mediumThumbnailImgUrl;
-
 	@Column(nullable = false)
-	private String bigThumbnailImgUrl;
+	private String thumbnailImgUrl;
 
     @Column(nullable = false)
     private String detailImgUrl;
@@ -48,13 +45,12 @@ public class Product {
 	private ProductSubCategory subCategory;
 
 	@Builder
-	public Product(String name, int price, String caption, String mediumThumbnailImgUrl, String bigThumbnailImgUrl,
+	public Product(String name, int price, String caption, String thumbnailImgUrl,
 				   String detailImgUrl, ProductCategory category, ProductSubCategory subCategory) {
 		this.name = name;
 		this.price = price;
 		this.caption = caption;
-		this.mediumThumbnailImgUrl = mediumThumbnailImgUrl;
-		this.bigThumbnailImgUrl = bigThumbnailImgUrl;
+		this.thumbnailImgUrl = thumbnailImgUrl;
 		this.detailImgUrl = detailImgUrl;
 		this.category = category;
 		this.subCategory = subCategory;
