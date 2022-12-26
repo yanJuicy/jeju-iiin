@@ -31,7 +31,7 @@ public class ProductService {
     /* 새 상품 나열하기 */
     public List<ProductResponse> getNewProducts() {
         List<ProductResponse> list = new ArrayList<>();
-        List<Product> products = productRepository.findTop5ByOrderByProductIdDesc();
+        List<Product> products = productRepository.findTop4ByOrderByProductIdDesc();
         for (Product product : products) {
             list.add(productMapper.toResponse(product));
         }
