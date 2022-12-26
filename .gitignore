@@ -42,3 +42,6 @@ src/main/resources/application-dev.properties
 
 ## Jwt
 src/main/resources/security.properties
+
+## MapStruct
+src/main/generated

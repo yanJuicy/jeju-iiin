@@ -4,14 +4,16 @@ import lombok.Getter;
 
 @Getter
 public class FindCategoryProductRequest {
-    
-    private final int size;
-    private final int page;
-    private final String category;
-    
-    public FindCategoryProductRequest(String category, int page) {
-        this.size = 20;
-        this.category = category;
-        this.page = page;
-    }
+
+	private String category;
+	private String subCategory;
+	private int page;
+	private int size;
+
+	public FindCategoryProductRequest(String category, String subCategory, int page) {
+		this.category = category;
+		this.subCategory = subCategory;
+		this.page = page;
+		this.size = 20;
+	}
 }
