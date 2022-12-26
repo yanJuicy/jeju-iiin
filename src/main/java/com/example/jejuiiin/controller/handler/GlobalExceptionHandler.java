@@ -1,5 +1,7 @@
 package com.example.jejuiiin.controller.handler;
 
+import com.example.jejuiiin.controller.exception.DuplicateException;
+import com.example.jejuiiin.controller.exception.ExceptionMessage;
 import com.example.jejuiiin.controller.response.Response;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -17,4 +19,10 @@ public class GlobalExceptionHandler {
         return Response.fail(BAD_REQUEST.value(), INVALID_PAGE_NUMBER_MSG.getMsg());
     }
 
+    @ResponseStatus(BAD_REQUEST)
+    @ExceptionHandler(DuplicateException.class)
+    public Response<?> handle(DuplicateException e) {
+        ExceptionMessage exceptionMessage = e.getExceptionMessage();
+        return Response.fail(exceptionMessage.getStatusCode(), exceptionMessage.getMsg());
+    }
 }
