@@ -41,10 +41,12 @@ public class ProductController {
         return productService.getProduct(productId);
     }
 
-    @GetMapping(params = {"category", "page"})
-    public PageResponse<?, ?> categoryProducts(@RequestParam String category, @RequestParam String page) {
+    @GetMapping
+    public PageResponse<?, ?> categoryProducts(@RequestParam(defaultValue = "") String category,
+		@RequestParam(value = "subcategory", defaultValue = "") String subCategory,
+        @RequestParam(defaultValue = "1") String page) {
         Page<Product> pageResult =
-                productService.getCategoryProducts(new FindCategoryProductRequest(category, Integer.parseInt(page)));
+                productService.getCategoryProducts(new FindCategoryProductRequest(category, subCategory, Integer.parseInt(page)));
         Function<Product, CategoryProductResponse> fn = PRODUCT_MAPPER::productToCategoryProductResponse;
         return PageResponse.success(FIND_SUCCESS_CATEGORY_PRODUCT_MSG, pageResult, fn);
     }

@@ -4,6 +4,7 @@ import com.example.jejuiiin.controller.request.FindCategoryProductRequest;
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.domain.ProductCategory;
+import com.example.jejuiiin.domain.ProductSubCategory;
 import com.example.jejuiiin.mapper.ProductDetailResponse;
 import com.example.jejuiiin.mapper.ProductMapper;
 import com.example.jejuiiin.repository.ProductRepository;
@@ -44,18 +45,32 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public Page<Product> getCategoryProducts(FindCategoryProductRequest request) {
-        String category = request.getCategory().toUpperCase();
-        ProductCategory categoryEnum = null;
-        try {
-            categoryEnum = ProductCategory.valueOf(category);
-        } catch (IllegalArgumentException ignored) {                  /* 요청 url의 category 값이 잘못되면 null로 바인딩, sql에서는 빈 리스트 반환 */
-        }
+        ProductCategory category = resolveCategory(request.getCategory());
+        ProductSubCategory subCategory = resolveSubCategory(request.getSubCategory());
 
         int page = request.getPage();
         int size = request.getSize();
         Pageable pageable = PageRequest.of(page - 1, size);
 
-        return productRepository.findAllByCategoryOrderByProductIdDesc(categoryEnum, pageable);
+        return productRepository.findAllByCategoryOrSubCategoryOrderByProductIdDesc(category, subCategory, pageable);
+    }
+
+    private ProductCategory resolveCategory(String category) {
+        ProductCategory categoryEnum = null;
+        try {
+            categoryEnum = ProductCategory.valueOf(category.toUpperCase());
+        } catch (IllegalArgumentException ignored) {                  /* 요청 url의 category 값이 잘못되면 null로 바인딩, sql에서는 빈 리스트 반환 */
+        }
+        return categoryEnum;
+    }
+
+    private ProductSubCategory resolveSubCategory(String subCategory) {
+        ProductSubCategory subCategoryEnum = null;
+        try {
+            subCategoryEnum = ProductSubCategory.valueOf(subCategory.toUpperCase());
+        } catch (IllegalArgumentException ignored) {
+        }
+        return subCategoryEnum;
     }
 
 }
