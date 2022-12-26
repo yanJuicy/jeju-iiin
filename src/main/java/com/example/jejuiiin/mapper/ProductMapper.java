@@ -15,8 +15,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .price(product.getPrice())
                 .caption(product.getCaption())
-                .bigThumbnailImgUrl(product.getBigThumbnailImgUrl())
-                .mediumThumbnailImgUrl(product.getMediumThumbnailImgUrl())
+                .thumbnailImgUrl(product.getThumbnailImgUrl())
                 .detailImgUrl(product.getDetailImgUrl())
                 .build();
     }
@@ -26,7 +25,7 @@ public class ProductMapper {
                 .name(product.getName())
                 .price(product.getPrice())
                 .caption(product.getCaption())
-                .bigThumbnailImgUrl(product.getBigThumbnailImgUrl())
+                .thumbnailImgUrl(product.getThumbnailImgUrl())
                 .detailImgUrl(product.getDetailImgUrl())
                 .build();
     }

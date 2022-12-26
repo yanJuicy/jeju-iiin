@@ -11,7 +11,7 @@ public class ProductDetailResponse {
     private String name;
     private int price;
     private String caption;
-    private String bigThumbnailImgUrl;
+    private String thumbnailImgUrl;
     private String detailImgUrl;
 
 }
