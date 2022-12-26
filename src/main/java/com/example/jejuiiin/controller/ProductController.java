@@ -1,22 +1,27 @@
 package com.example.jejuiiin.controller;
 
+import static com.example.jejuiiin.mapper.ProductMapperMapStruct.PRODUCT_MAPPER;
+
+import java.util.List;
+import java.util.function.Function;
+
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.jejuiiin.controller.request.FindCategoryProductRequest;
-import com.example.jejuiiin.controller.response.CategoryProductResponse;
-import com.example.jejuiiin.controller.response.PageResponse;
+import com.example.jejuiiin.controller.response.CategoryProductPageResponse;
+import com.example.jejuiiin.controller.response.CategoryProductResponseData;
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.mapper.ProductDetailResponse;
 import com.example.jejuiiin.service.ProductService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.function.Function;
-
-import static com.example.jejuiiin.controller.response.message.SuccessMessage.FIND_SUCCESS_CATEGORY_PRODUCT_MSG;
-import static com.example.jejuiiin.mapper.ProductMapperMapStruct.PRODUCT_MAPPER;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -44,13 +49,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public PageResponse<?, ?> categoryProducts(@RequestParam(defaultValue = "") String category,
+    public CategoryProductPageResponse<?, ?> categoryProducts(@RequestParam(defaultValue = "") String category,
 		@RequestParam(value = "subcategory", defaultValue = "") String subCategory,
         @RequestParam(defaultValue = "1") String page) {
         Page<Product> pageResult =
                 productService.getCategoryProducts(new FindCategoryProductRequest(category, subCategory, Integer.parseInt(page)));
-        Function<Product, CategoryProductResponse> fn = PRODUCT_MAPPER::productToCategoryProductResponse;
-        return PageResponse.success(FIND_SUCCESS_CATEGORY_PRODUCT_MSG, pageResult, fn);
+        Function<Product, CategoryProductResponseData> fn = PRODUCT_MAPPER::productToCategoryProductResponse;
+        List<String> subCategoryList = productService.getSubCategoryList(category, subCategory);
+        return CategoryProductPageResponse.success(200, "카테고리별 상품 조회 성공", pageResult, fn, subCategoryList);
     }
 
 }
