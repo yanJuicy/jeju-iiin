@@ -1,8 +1,8 @@
 package com.example.jejuiiin.controller.handler;
 
+import com.example.jejuiiin.controller.exception.DuplicateException;
+import com.example.jejuiiin.controller.exception.ExceptionMessage;
 import com.example.jejuiiin.controller.response.Response;
-import com.example.jejuiiin.exception.DuplicateException;
-import com.example.jejuiiin.exception.ExceptionMessage;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

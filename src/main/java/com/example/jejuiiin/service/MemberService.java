@@ -1,8 +1,9 @@
 package com.example.jejuiiin.service;
 
+import com.example.jejuiiin.controller.exception.DuplicateException;
 import com.example.jejuiiin.controller.request.SignupServiceRequest;
 import com.example.jejuiiin.domain.Member;
-import com.example.jejuiiin.exception.DuplicateException;
+
 import com.example.jejuiiin.mapper.MemberMapper;
 import com.example.jejuiiin.repository.MemberRepository;
 import com.example.jejuiiin.security.jwt.JwtUtil;
@@ -11,8 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.example.jejuiiin.exception.ExceptionMessage.DUPLICATE_EMAIL_MSG;
-import static com.example.jejuiiin.exception.ExceptionMessage.DUPLICATE_LOGIN_ID_MSG;
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.DUPLICATE_EMAIL_MSG;
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.DUPLICATE_LOGIN_ID_MSG;
+
 
 @RequiredArgsConstructor
 @Service

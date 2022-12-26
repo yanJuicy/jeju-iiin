@@ -3,6 +3,7 @@ package com.example.jejuiiin.controller;
 import com.example.jejuiiin.controller.request.SignupRequest;
 import com.example.jejuiiin.controller.request.SignupServiceRequest;
 import com.example.jejuiiin.controller.response.Response;
+import com.example.jejuiiin.mapper.MemberMapper;
 import com.example.jejuiiin.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -20,14 +21,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public Response signup(@Validated @RequestBody SignupRequest request){
-        SignupServiceRequest signupServiceRequest = SignupServiceRequest.builder()
-                .loginId(request.getLoginId())
-                .password(request.getPassword())
-                .name(request.getName())
-                .email(request.getEmail())
-                .isSocial(false)
-                .socialType(null)
-                .build();
+        SignupServiceRequest signupServiceRequest = MemberMapper.signupRequestToSignUpServiceRequest(request);
 
         memberService.signup(signupServiceRequest);
 
