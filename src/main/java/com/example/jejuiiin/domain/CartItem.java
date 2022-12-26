@@ -29,7 +29,7 @@ public class CartItem {
     private Long productId;
 
     @Column(nullable = false)
-    private String thumbnail_img_url;
+    private String thumbnailImgUrl;
 
     @Column(nullable = false)
     private String name;
@@ -48,7 +48,7 @@ public class CartItem {
                     int sellingPrice, int quantity, int summation) {
         this.member = member;
         this.productId = productId;
-        this.thumbnail_img_url = thumbnail_img_url;
+        this.thumbnailImgUrl = thumbnail_img_url;
         this.name = name;
         this.sellingPrice = sellingPrice;
         this.quantity = quantity;
