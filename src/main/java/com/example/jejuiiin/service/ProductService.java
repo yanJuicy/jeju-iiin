@@ -48,7 +48,7 @@ public class ProductService {
         ProductCategory categoryEnum = null;
         try {
             categoryEnum = ProductCategory.valueOf(category);
-        } catch (IllegalArgumentException ignored) {                        /* category 값이 잘못되면 null로 바인딩 어차피 sql에서 오류 안남 */
+        } catch (IllegalArgumentException ignored) {                  /* 요청 url의 category 값이 잘못되면 null로 바인딩, sql에서는 빈 리스트 반환 */
         }
 
         int page = request.getPage();
