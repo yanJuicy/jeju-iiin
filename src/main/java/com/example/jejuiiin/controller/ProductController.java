@@ -27,8 +27,12 @@ public class ProductController {
 
     /* 새 상품 나열하기 */
     @GetMapping("/newitems")
-    public List<ProductResponse> getNewProducts(){
-        return productService.getNewProducts();
+    public Response<List<ProductResponse>> getNewProducts(){
+        List<ProductResponse> response = productService.getNewProducts();
+
+        return new Response<>(200,"신규 상품 조회 완료 ",response);
+
+//        return productService.getNewProducts();
     }
 
     @GetMapping("/{productId}")
@@ -39,10 +43,12 @@ public class ProductController {
 
     }
 
-    @GetMapping(params = {"category", "page"})
-    public PageResponse<?, ?> categoryProducts(@RequestParam String category, @RequestParam String page) {
+    @GetMapping
+    public PageResponse<?, ?> categoryProducts(@RequestParam(defaultValue = "") String category,
+		@RequestParam(value = "subcategory", defaultValue = "") String subCategory,
+        @RequestParam(defaultValue = "1") String page) {
         Page<Product> pageResult =
-                productService.getCategoryProducts(new FindCategoryProductRequest(category, Integer.parseInt(page)));
+                productService.getCategoryProducts(new FindCategoryProductRequest(category, subCategory, Integer.parseInt(page)));
         Function<Product, CategoryProductResponse> fn = PRODUCT_MAPPER::productToCategoryProductResponse;
         return PageResponse.success(FIND_SUCCESS_CATEGORY_PRODUCT_MSG, pageResult, fn);
     }

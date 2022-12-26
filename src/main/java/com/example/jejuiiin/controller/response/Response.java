@@ -1,6 +1,6 @@
 package com.example.jejuiiin.controller.response;
 
-import com.example.jejuiiin.exception.ExceptionMessage;
+import com.example.jejuiiin.controller.exception.ExceptionMessage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
