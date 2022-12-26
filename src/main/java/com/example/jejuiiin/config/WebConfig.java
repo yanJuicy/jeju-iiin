@@ -9,6 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 	private static final String CORS_ALLOW_URL ="/api/**";
 	private static final String REACT_LOCAL_HOST = "http://localhost:3000";
+ 	private static final String REACT_APP = "http://4team-troubleshooter.s3-website.ap-northeast-2.amazonaws.com/";
 	private static final Long ACCESS_CONTROL_MAX_AGE_SECS = 600L;
 
 	@Override
@@ -16,7 +17,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addMapping(CORS_ALLOW_URL)
 				.allowCredentials(true)
 				.maxAge(ACCESS_CONTROL_MAX_AGE_SECS)
-				.allowedOrigins(REACT_LOCAL_HOST)
+				.allowedOrigins(REACT_LOCAL_HOST, REACT_APP)
 				.allowedHeaders("*")
 				.allowedMethods("*");
 	}
