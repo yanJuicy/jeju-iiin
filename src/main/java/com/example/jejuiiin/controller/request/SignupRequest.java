@@ -2,10 +2,12 @@ package com.example.jejuiiin.controller.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Pattern;
 
 @Getter
+@NoArgsConstructor
 public class SignupRequest {
     /* 영문 소문자 or 숫자로 이루어진 4~16자 검증 */
     @Pattern(regexp = "^[a-z0-9]{4,16}$")

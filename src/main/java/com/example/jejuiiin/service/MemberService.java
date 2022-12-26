@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Email;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -55,7 +56,7 @@ public class MemberService {
             throw new DuplicateException(DUPLICATE_LOGIN_ID_MSG);
         }
 
-        if(isDuplicateLoginId(loginId)){
+        if(isDuplicateEmail(email)){
             throw new DuplicateException(DUPLICATE_EMAIL_MSG);
         }
 

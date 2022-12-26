@@ -2,6 +2,7 @@ package com.example.jejuiiin.controller.request;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class LoginServiceRequest {

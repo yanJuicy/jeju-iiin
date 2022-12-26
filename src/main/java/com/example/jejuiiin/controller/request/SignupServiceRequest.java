@@ -3,6 +3,7 @@ package com.example.jejuiiin.controller.request;
 import com.example.jejuiiin.domain.SocialType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 public class SignupServiceRequest {
