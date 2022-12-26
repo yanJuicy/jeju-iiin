@@ -4,6 +4,7 @@ import com.example.jejuiiin.controller.request.FindCategoryProductRequest;
 import com.example.jejuiiin.controller.response.CategoryProductResponse;
 import com.example.jejuiiin.controller.response.PageResponse;
 import com.example.jejuiiin.controller.response.ProductResponse;
+import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.mapper.ProductDetailResponse;
 import com.example.jejuiiin.service.ProductService;
@@ -32,8 +33,12 @@ public class ProductController {
 
     /* 새 상품 나열하기 */
     @GetMapping("/newitems")
-    public List<ProductResponse> getNewProducts(){
-        return productService.getNewProducts();
+    public Response<List<ProductResponse>> getNewProducts(){
+        List<ProductResponse> response = productService.getNewProducts();
+
+        return new Response<>(200,"신규 상품 조회 완료 ",response);
+
+//        return productService.getNewProducts();
     }
 
     @GetMapping("/{productId}")
