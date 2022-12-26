@@ -22,4 +22,13 @@ public class Response<T> {
         this.msg = exceptionMessage.getMsg();
         this.data = null;
     }
+
+    /* 한주 스타일 */
+    public static <T> Response<T> success(int httpStatusCode, String errorMessage, T data) {
+        return new Response<>(httpStatusCode, errorMessage, data);
+    }
+
+    public static <T> Response<T> fail(int httpStatusCode, String errorMessage) {
+        return new Response<>(httpStatusCode, errorMessage, null);
+    }
 }
