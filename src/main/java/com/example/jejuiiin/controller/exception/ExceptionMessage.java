@@ -1,4 +1,4 @@
-package com.example.jejuiiin.exception;
+package com.example.jejuiiin.controller.exception;
 
 import lombok.Getter;
 

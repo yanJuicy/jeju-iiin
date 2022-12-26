@@ -14,8 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.example.jejuiiin.exception.ExceptionMessage.INVALID_TOKEN_MSG;
-import static com.example.jejuiiin.exception.ExceptionMessage.TOKEN_NOT_FOUND_MSG;
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.INVALID_TOKEN_MSG;
 
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {

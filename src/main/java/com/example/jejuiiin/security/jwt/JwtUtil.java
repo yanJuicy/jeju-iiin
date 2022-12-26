@@ -26,7 +26,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.example.jejuiiin.exception.ExceptionMessage.TOKEN_NOT_FOUND_MSG;
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.TOKEN_NOT_FOUND_MSG;
 
 @Slf4j
 @Component
