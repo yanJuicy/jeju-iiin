@@ -33,7 +33,7 @@ import static com.example.jejuiiin.controller.exception.ExceptionMessage.TOKEN_N
 @PropertySource("classpath:security.properties")
 @RequiredArgsConstructor
 public class JwtUtil {
-    public static final String AUTHORIZATION_ACCESS = "authorization";
+    public static final String AUTHORIZATION_ACCESS = "Authorization";
     /* 토큰 생성 시 앞에 붙는 식별자 */
     private static final String BEARER_PREFIX = "Bearer ";
     /* 토큰 만료 시간 (분*초*밀리sec) */
