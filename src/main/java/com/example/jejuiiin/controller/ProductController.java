@@ -8,15 +8,9 @@ import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.mapper.ProductDetailResponse;
 import com.example.jejuiiin.service.ProductService;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.function.Function;
@@ -42,8 +36,11 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public ProductDetailResponse getProduct(@PathVariable Long productId) {
-        return productService.getProduct(productId);
+    public Response getProduct(@PathVariable Long productId) {
+        ProductDetailResponse productdetail = productService.getProduct(productId);
+        Response<ProductDetailResponse> response = new Response<>(200, "제품 상세조회 성공", productdetail);
+        return response;
+
     }
 
     @GetMapping
