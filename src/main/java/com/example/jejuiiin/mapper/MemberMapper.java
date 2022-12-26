@@ -1,5 +1,7 @@
 package com.example.jejuiiin.mapper;
 
+import com.example.jejuiiin.controller.request.LoginRequest;
+import com.example.jejuiiin.controller.request.LoginServiceRequest;
 import com.example.jejuiiin.controller.request.SignupRequest;
 import com.example.jejuiiin.controller.request.SignupServiceRequest;
 import com.example.jejuiiin.domain.Member;
@@ -27,6 +29,14 @@ public class MemberMapper {
                 .email(signupRequest.getEmail())
                 .isSocial(false)
                 .socialType(null)
+                .build();
+    }
+
+    /* Login Request Dto를 LoginServiceRequest Dto로 매핑 */
+    public static LoginServiceRequest loginRequestToLoginServiceRequest(LoginRequest loginRequest){
+        return LoginServiceRequest.builder()
+                .loginId(loginRequest.getLoginId())
+                .password(loginRequest.getPassword())
                 .build();
     }
 }
