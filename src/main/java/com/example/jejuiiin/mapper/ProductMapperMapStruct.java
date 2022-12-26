@@ -1,6 +1,6 @@
 package com.example.jejuiiin.mapper;
 
-import com.example.jejuiiin.controller.response.CategoryProductResponse;
+import com.example.jejuiiin.controller.response.CategoryProductResponseData;
 import com.example.jejuiiin.domain.Product;
 
 import org.mapstruct.Mapper;
@@ -11,5 +11,5 @@ public interface ProductMapperMapStruct {
 
     ProductMapperMapStruct PRODUCT_MAPPER = Mappers.getMapper(ProductMapperMapStruct.class);
 
-    CategoryProductResponse productToCategoryProductResponse(Product product);
+    CategoryProductResponseData productToCategoryProductResponse(Product product);
 }
