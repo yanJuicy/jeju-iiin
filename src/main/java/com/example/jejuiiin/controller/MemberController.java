@@ -1,6 +1,7 @@
 package com.example.jejuiiin.controller;
 
 import com.example.jejuiiin.controller.request.SignupRequest;
+import com.example.jejuiiin.controller.request.SignupServiceRequest;
 import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public Response signup(@Validated @RequestBody SignupRequest request){
-        Signup signup = Signup.builder()
+        SignupServiceRequest signupServiceRequest = SignupServiceRequest.builder()
                 .loginId(request.getLoginId())
                 .password(request.getPassword())
                 .name(request.getName())
@@ -28,7 +29,7 @@ public class MemberController {
                 .socialType(null)
                 .build();
 
-        MemberService.signup(signup);
+        memberService.signup(signupServiceRequest);
 
         return new Response(201, "회원가입이 완료되었습니다.", null);
     }
