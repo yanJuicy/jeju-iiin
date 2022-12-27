@@ -5,6 +5,7 @@ import com.example.jejuiiin.domain.Member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CartRepository extends JpaRepository<CartItem, Long> {
@@ -12,4 +13,6 @@ public interface CartRepository extends JpaRepository<CartItem, Long> {
     Optional<CartItem> findByProductIdAndMember(Long productId, Member member);
 
     int countByMember(Member member);
+
+    List<CartItem> findAllByMember(Member member);
 }

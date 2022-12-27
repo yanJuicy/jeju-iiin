@@ -2,6 +2,7 @@ package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.request.CartItemServiceRequest;
 import com.example.jejuiiin.controller.response.CartItemResponse;
+import com.example.jejuiiin.controller.response.MyCartResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
@@ -9,11 +10,14 @@ import com.example.jejuiiin.mapper.CartMapper;
 import com.example.jejuiiin.repository.CartRepository;
 import com.example.jejuiiin.repository.ProductRepository;
 
+import com.example.jejuiiin.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -64,5 +68,23 @@ public class CartService {
         return cartRepository.findByProductIdAndMember(productId, member)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
     }
+    public List<MyCartResponse> showMyCart(UserDetailsImpl userDetails) {
+        List<CartItem> cartItemList = cartRepository.findAllByMember(userDetails.getMember());
 
+        List<MyCartResponse> list = new ArrayList<>();
+
+        for(CartItem cartItem : cartItemList){
+            MyCartResponse response = MyCartResponse.builder()
+                    .productId(cartItem.getProductId())
+                    .thumbnailImgUrl(cartItem.getThumbnailImgUrl())
+                    .name(cartItem.getName())
+                    .sellingPrice(cartItem.getSellingPrice())
+                    .quantity(cartItem.getQuantity())
+                    .summation(cartItem.getSummation())
+                    .build();
+
+            list.add(response);
+        }
+        return list;
+    }
 }
