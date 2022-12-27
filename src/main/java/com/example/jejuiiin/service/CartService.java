@@ -2,17 +2,21 @@ package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.request.CreateCartItemRequest;
 import com.example.jejuiiin.controller.response.CreateCartItemResponse;
+import com.example.jejuiiin.controller.response.MyCartResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.repository.CartRepository;
 import com.example.jejuiiin.repository.ProductRepository;
 
+import com.example.jejuiiin.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -53,5 +57,23 @@ public class CartService {
         return new CreateCartItemResponse(newCartItem.getCartItemId());
     }
 
+    public List<MyCartResponse> showMyCart(UserDetailsImpl userDetails) {
+        List<CartItem> cartItemList = cartRepository.findAllByMember(userDetails.getMember());
 
-}
+        List<MyCartResponse> list = new ArrayList<>();
+
+        for(CartItem cartItem : cartItemList){
+            MyCartResponse response = MyCartResponse.builder()
+            .productId(cartItem.getProductId())
+            .thumbnailImgUrl(cartItem.getThumbnailImgUrl())
+            .name(cartItem.getName())
+            .sellingPrice(cartItem.getSellingPrice())
+            .quantity(cartItem.getQuantity())
+            .summation(cartItem.getSummation())
+                    .build();
+
+            list.add(response);
+        }
+        return list;
+    }
+    }
