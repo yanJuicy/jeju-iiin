@@ -28,13 +28,11 @@ public class CartService {
 
     @Transactional
     public CartItemResponse createCartItem(CartItemServiceRequest request) {
-        Long productId = request.getProductId();
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
 
+        Product product = findProduct(request.getProductId());
         Member loginMember = request.getMember();
-        /* 장바구니에 이미 상품이 있으면 수량 +1 */
-        Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(productId, loginMember);
+        /* 장바구니에 이미 상품이 있으면 수량 +n */
+        Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(product.getProductId(), loginMember);
         if (savedCartItem.isPresent()) {
             savedCartItem.get().plusQuantity(request.getQuantity());
             return new CartItemResponse(savedCartItem.get().getCartItemId());
@@ -43,7 +41,7 @@ public class CartService {
         // mapper 변환 필요
         CartItem cartItem = CartItem.builder()
                 .member(loginMember)
-                .productId(productId)
+                .productId(product.getProductId())
                 .thumbnail_img_url(product.getThumbnailImgUrl())
                 .name(product.getName())
                 .sellingPrice(product.getPrice())
@@ -57,17 +55,23 @@ public class CartService {
 
     @Transactional
     public CartItemResponse updateCartItem(CartItemServiceRequest request) {
-        Long productId = request.getProductId();
-        productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
-
+        Product product = findProduct(request.getProductId());
         Member loginMember = request.getMember();
-        CartItem savedCartItem = cartRepository.findByProductIdAndMember(productId, loginMember)
-                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
+        CartItem savedCartItem = findCartItem(product.getProductId(), loginMember);
 
         savedCartItem.updateQuantity(request.getQuantity());
 
         return new CartItemResponse(savedCartItem.getCartItemId());
+    }
+
+    private Product findProduct(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
+    }
+
+    private CartItem findCartItem(Long productId, Member member) {
+        return cartRepository.findByProductIdAndMember(productId, member)
+                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
     }
 
 }
