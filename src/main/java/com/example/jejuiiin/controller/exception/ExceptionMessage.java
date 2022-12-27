@@ -19,10 +19,12 @@ public enum ExceptionMessage {
     EMPTY_TOKEN_MSG(401, "토큰이 비어 있습니다."),
 
     /* Product */
-    NO_EXISTS_PRODUCT_MSG(400,"상품이 존재하지 않습니다."),
+    NO_EXISTS_PRODUCT_MSG(404,"상품이 존재하지 않습니다."),
 
-    INVALID_PAGE_NUMBER_MSG(400,"페이지 값은 숫자입니다.");
+    INVALID_PAGE_NUMBER_MSG(400,"페이지 값은 숫자입니다."),
 
+    /* Cart */
+    NO_EXISTS_CART_ITEM_MSG(404, "장바구니에 해당 상품이 존재하지 않습니다.");
 
     private final int statusCode;
     private final String msg;

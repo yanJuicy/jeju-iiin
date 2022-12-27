@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 import static com.example.jejuiiin.controller.exception.ExceptionMessage.INVALID_PAGE_NUMBER_MSG;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
         return Response.fail(exceptionMessage.getStatusCode(), exceptionMessage.getMsg());
     }
 
-    @ResponseStatus(BAD_REQUEST)
+    @ResponseStatus(NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
     public Response<?> handle(NoSuchElementException e) {
         return Response.fail(BAD_REQUEST.value(), e.getMessage());

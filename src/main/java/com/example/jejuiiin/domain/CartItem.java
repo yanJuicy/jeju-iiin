@@ -59,4 +59,9 @@ public class CartItem {
         this.quantity += count;
         this.summation = this.quantity * this.sellingPrice;
     }
+
+    public void updateQuantity(int count) {
+        this.quantity = count;
+        this.summation = this.quantity * this.sellingPrice;
+    }
 }
