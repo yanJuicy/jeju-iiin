@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXISTS_CART_ITEM_MSG;
 import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXISTS_PRODUCT_MSG;
 
 @Service
@@ -62,7 +63,7 @@ public class CartService {
 
         Member loginMember = request.getMember();
         CartItem savedCartItem = cartRepository.findByProductIdAndMember(productId, loginMember)
-                .orElseThrow(() -> new NoSuchElementException("장바구니에 해당 상품이 존재하지 않습니다."));
+                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
 
         savedCartItem.updateQuantity(request.getQuantity());
 
