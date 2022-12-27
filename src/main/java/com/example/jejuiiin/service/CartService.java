@@ -5,7 +5,7 @@ import com.example.jejuiiin.controller.response.CreateCartItemResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
-import com.example.jejuiiin.repository.CartRepository;
+import com.example.jejuiiin.repository.CartItemRepository;
 import com.example.jejuiiin.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXIS
 @RequiredArgsConstructor
 public class CartService {
 
-    private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
     private final ProductRepository productRepository;
 
     @Transactional
@@ -32,7 +32,7 @@ public class CartService {
                 .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
 
         /* 장바구니에 이미 상품이 있으면 수량 +1 */
-        Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(productId, loginMember);
+        Optional<CartItem> savedCartItem = cartItemRepository.findByProductIdAndMember(productId, loginMember);
         if (savedCartItem.isPresent()) {
             savedCartItem.get().plusQuantity(1);
             return new CreateCartItemResponse(savedCartItem.get().getCartItemId());
@@ -49,7 +49,7 @@ public class CartService {
                 .summation(request.getQuantity() * product.getPrice())
                 .build();
 
-        CartItem newCartItem = cartRepository.save(cartItem);
+        CartItem newCartItem = cartItemRepository.save(cartItem);
         return new CreateCartItemResponse(newCartItem.getCartItemId());
     }
 
