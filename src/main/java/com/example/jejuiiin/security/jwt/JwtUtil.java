@@ -1,5 +1,6 @@
 package com.example.jejuiiin.security.jwt;
 
+import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.security.UserDetailsServiceImpl;
 import com.example.jejuiiin.security.jwt.exception.CustomSecurityException;
 import io.jsonwebtoken.Claims;
@@ -26,7 +27,7 @@ import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 
-import static com.example.jejuiiin.controller.exception.ExceptionMessage.TOKEN_NOT_FOUND_MSG;
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.*;
 
 @Slf4j
 @Component
@@ -82,12 +83,15 @@ public class JwtUtil {
         try {
             Jwts.parserBuilder().setSigningKey(accessTokenKey).build().parseClaimsJws(accessToken);
             return true;
-        } catch (SecurityException | MalformedJwtException e) {      /* 유요하지 않는 Access JWT 서명 */
+        } catch (SecurityException | MalformedJwtException e) {      /* 유효하지 않는 Access JWT 서명 */
+            throw new CustomSecurityException(INVALID_TOKEN_MSG);
         } catch (ExpiredJwtException e) {      /* Access JWT 만료 */
+            throw new CustomSecurityException(EXPIRED_TOKEN_MSG);
         } catch (UnsupportedJwtException e) {      /* 지원되지 않는 Access JWT */
+            throw new CustomSecurityException(UNSUPPORTED_TOKEN_MSG);
         } catch (IllegalArgumentException e) {      /* Access JWT claims가 비어 있을 경우 */
+            throw new CustomSecurityException(EMPTY_TOKEN_MSG);
         }
-        return false;
     }
 
     /* 토큰에서 사용자 정보 가져오기 */
