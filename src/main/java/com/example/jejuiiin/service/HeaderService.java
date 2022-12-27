@@ -2,7 +2,7 @@ package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.response.HeaderResponse;
 import com.example.jejuiiin.domain.Member;
-import com.example.jejuiiin.repository.CartItemRepository;
+import com.example.jejuiiin.repository.CartRepository;
 import com.example.jejuiiin.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Service
 public class HeaderService {
-    private final CartItemRepository cartItemRepository;
+    private final CartRepository cartItemRepository;
     private final MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
