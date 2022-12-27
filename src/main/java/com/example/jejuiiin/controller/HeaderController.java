@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HeaderController {
     private final HeaderService headerService;
 
-    @GetMapping("/")
+    @GetMapping
     public Response<HeaderResponse> showHeaderDetails(@AuthenticationPrincipal UserDetails userDetails){
         HeaderResponse headerResponse = headerService.showHeaderDetails(userDetails);
         return new Response<>(200, "헤더가 반환되었습니다.", headerResponse);
