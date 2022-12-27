@@ -2,6 +2,7 @@ package com.example.jejuiiin.controller.handler;
 
 import com.example.jejuiiin.controller.exception.DuplicateException;
 import com.example.jejuiiin.controller.exception.ExceptionMessage;
+import com.example.jejuiiin.controller.exception.OAuth2LoginException;
 import com.example.jejuiiin.controller.response.Response;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 import static com.example.jejuiiin.controller.exception.ExceptionMessage.INVALID_PAGE_NUMBER_MSG;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestControllerAdvice
@@ -35,4 +37,10 @@ public class GlobalExceptionHandler {
     public Response<?> handle(NoSuchElementException e) {
         return Response.fail(BAD_REQUEST.value(), e.getMessage());
     }
+
+	@ResponseStatus(INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(OAuth2LoginException.class)
+	public Response<?> handle(OAuth2LoginException e) {
+		return Response.fail(INTERNAL_SERVER_ERROR.value(), e.getMessage());
+	}
 }
