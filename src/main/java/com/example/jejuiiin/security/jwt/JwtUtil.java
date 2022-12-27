@@ -79,10 +79,9 @@ public class JwtUtil {
     }
 
     /* Access 토큰 검증 */
-    public boolean validateAccessToken(String accessToken, HttpServletRequest request, HttpServletResponse response) {
+    public void validateAccessToken(String accessToken, HttpServletRequest request, HttpServletResponse response) {
         try {
             Jwts.parserBuilder().setSigningKey(accessTokenKey).build().parseClaimsJws(accessToken);
-            return true;
         } catch (SecurityException | MalformedJwtException e) {      /* 유효하지 않는 Access JWT 서명 */
             throw new CustomSecurityException(INVALID_TOKEN_MSG);
         } catch (ExpiredJwtException e) {      /* Access JWT 만료 */
