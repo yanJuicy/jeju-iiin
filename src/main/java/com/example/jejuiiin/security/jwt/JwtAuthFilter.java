@@ -38,9 +38,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (!jwtUtil.validateAccessToken(token, request, response)) {
-            throw new CustomSecurityException(INVALID_TOKEN_MSG);
-        }
+        jwtUtil.validateAccessToken(token, request, response);
+
 
         Claims info = jwtUtil.getUserInfoFromHttpServletRequest(request);
         setAuthentication(info.getSubject());

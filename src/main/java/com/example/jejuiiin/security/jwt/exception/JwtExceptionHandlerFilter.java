@@ -22,8 +22,7 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (CustomSecurityException ex){
-            log.error("JWT 인증/인가 관련 이슈");
-            ex.printStackTrace();
+            log.error(ex.getExceptionMessage().getMsg());
             setErrorResponse(response, ex);
         }
     }
