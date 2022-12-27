@@ -1,5 +1,10 @@
 package com.example.jejuiiin.service;
 
+import static com.example.jejuiiin.domain.ProductCategory.MAGAZINE;
+import static com.example.jejuiiin.domain.ProductCategory.SHOP;
+import static com.example.jejuiiin.domain.ProductSubCategory.FINDERS;
+import static com.example.jejuiiin.domain.ProductSubCategory.IIIN;
+
 import com.example.jejuiiin.controller.request.FindCategoryProductRequest;
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.domain.Product;
@@ -18,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -71,6 +77,31 @@ public class ProductService {
         } catch (IllegalArgumentException ignored) {
         }
         return subCategoryEnum;
+    }
+
+    public List<String> getSubCategoryList(String category, String subCategory) {
+        List<String> magazineSubCategory = List.of("IIIN", "FINDERS");
+        List<String> shopSubCategory = List.of("ART", "BOOK", "FOOD", "GOODS", "HANLIMSUGIC", "RESERVATION");
+
+        if (category.equalsIgnoreCase(MAGAZINE.name())) {
+            return magazineSubCategory;
+        }
+        if (category.equalsIgnoreCase(SHOP.name())) {
+            return shopSubCategory;
+        }
+
+        ProductSubCategory productSubCategory;
+        try {
+            productSubCategory = ProductSubCategory.valueOf(subCategory.toUpperCase());
+        } catch (IllegalArgumentException ignored) {
+            return Collections.emptyList();
+        }
+
+        if (productSubCategory == IIIN || productSubCategory == FINDERS) {
+            return magazineSubCategory;
+        }
+
+        return shopSubCategory;
     }
 
 }

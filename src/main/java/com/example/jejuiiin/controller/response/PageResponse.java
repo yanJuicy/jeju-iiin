@@ -1,14 +1,14 @@
 package com.example.jejuiiin.controller.response;
 
-import com.example.jejuiiin.controller.response.message.SuccessMessage;
-import lombok.Getter;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import lombok.Getter;
 
 @Getter
 public class PageResponse<T, EN> {
@@ -49,7 +49,8 @@ public class PageResponse<T, EN> {
                 .collect(Collectors.toList());
     }
 
-    public static <T, EN> PageResponse<T, EN> success(SuccessMessage message, Page<EN> page, Function<EN, T> fn) {
-        return new PageResponse<>(message.getHttpStatusCode(), message.getMsg(), page, fn);
+    public static <T, EN> PageResponse<T, EN> success(int httpStatusCode, String message, Page<EN> page,
+        Function<EN, T> fn) {
+        return new PageResponse<>(httpStatusCode, message, page, fn);
     }
 }

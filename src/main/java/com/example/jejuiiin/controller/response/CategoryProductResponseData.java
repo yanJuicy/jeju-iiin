@@ -3,7 +3,7 @@ package com.example.jejuiiin.controller.response;
 import lombok.Getter;
 
 @Getter
-public class CategoryProductResponse {
+public class CategoryProductResponseData {
     private Long productId;
     private String name;
     private int price;
@@ -12,7 +12,7 @@ public class CategoryProductResponse {
     private String category;
     private String subCategory;
 
-    public CategoryProductResponse(Long productId, String name, int price, String caption,
+    public CategoryProductResponseData(Long productId, String name, int price, String caption,
                                    String thumbnailImgUrl, String category, String subCategory) {
         this.productId = productId;
         this.name = name;
