@@ -5,6 +5,7 @@ import com.example.jejuiiin.controller.response.CartItemResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
+import com.example.jejuiiin.mapper.CartMapper;
 import com.example.jejuiiin.repository.CartRepository;
 import com.example.jejuiiin.repository.ProductRepository;
 
@@ -28,7 +29,6 @@ public class CartService {
 
     @Transactional
     public CartItemResponse createCartItem(CartItemServiceRequest request) {
-
         Product product = findProduct(request.getProductId());
         Member loginMember = request.getMember();
         /* 장바구니에 이미 상품이 있으면 수량 +n */
@@ -38,16 +38,7 @@ public class CartService {
             return new CartItemResponse(savedCartItem.get().getCartItemId());
         }
 
-        // mapper 변환 필요
-        CartItem cartItem = CartItem.builder()
-                .member(loginMember)
-                .productId(product.getProductId())
-                .thumbnail_img_url(product.getThumbnailImgUrl())
-                .name(product.getName())
-                .sellingPrice(product.getPrice())
-                .quantity(request.getQuantity())
-                .summation(request.getQuantity() * product.getPrice())
-                .build();
+        CartItem cartItem = CartMapper.toCartItem(loginMember, product, request.getQuantity());
 
         CartItem newCartItem = cartRepository.save(cartItem);
         return new CartItemResponse(newCartItem.getCartItemId());
