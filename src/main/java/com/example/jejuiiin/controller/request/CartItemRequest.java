@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class CreateCartItemRequest {
+public class CartItemRequest {
     private Long productId;
     private int quantity;
 }

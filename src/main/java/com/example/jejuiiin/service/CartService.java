@@ -1,6 +1,6 @@
 package com.example.jejuiiin.service;
 
-import com.example.jejuiiin.controller.request.CreateCartItemRequest;
+import com.example.jejuiiin.controller.request.CartItemRequest;
 import com.example.jejuiiin.controller.response.CreateCartItemResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
@@ -26,7 +26,7 @@ public class CartService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public CreateCartItemResponse createCartItem(CreateCartItemRequest request, Member loginMember) {
+    public CreateCartItemResponse createCartItem(CartItemRequest request, Member loginMember) {
         Long productId = request.getProductId();
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
