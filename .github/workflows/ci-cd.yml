@@ -42,7 +42,11 @@ jobs:
     # jwt secret 로딩 및 securty 파일 생성
     - run: touch ./src/main/resources/security.properties
     - run: echo "${{ secrets.JWT }}" > ./src/main/resources/security.properties      
-    
+  
+    # oauth login secret 로딩 및 social 파일 생성
+    - run: touch ./src/main/resources/application-social.properties
+    - run: echo "${{ secrets.OAUTH }}" > ./src/main/resources/application-social.properties   
+  
     # Gradle 권한 설정
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
