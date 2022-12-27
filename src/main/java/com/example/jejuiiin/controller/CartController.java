@@ -24,7 +24,7 @@ public class CartController {
 
     @PostMapping
     public Response<?> newCartItem(@RequestBody CartItemRequest newCartItem, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        var data = cartService.createCartItem(newCartItem, userDetails.getMember());
+        var data = cartService.createCartItem(new CartItemServiceRequest(newCartItem.getProductId(), newCartItem.getQuantity(), userDetails.getMember()));
         return Response.success(201, "장바구니 등록 성공", data);
     }
 

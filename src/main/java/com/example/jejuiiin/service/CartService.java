@@ -1,6 +1,5 @@
 package com.example.jejuiiin.service;
 
-import com.example.jejuiiin.controller.request.CartItemRequest;
 import com.example.jejuiiin.controller.request.CartItemServiceRequest;
 import com.example.jejuiiin.controller.response.CartItemResponse;
 import com.example.jejuiiin.domain.CartItem;
@@ -28,11 +27,12 @@ public class CartService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public CartItemResponse createCartItem(CartItemRequest request, Member loginMember) {
+    public CartItemResponse createCartItem(CartItemServiceRequest request) {
         Long productId = request.getProductId();
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
 
+        Member loginMember = request.getMember();
         /* 장바구니에 이미 상품이 있으면 수량 +1 */
         Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(productId, loginMember);
         if (savedCartItem.isPresent()) {
