@@ -30,11 +30,12 @@ import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXIS
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+    private final ServiceUtil serviceUtil;
+
 
     @Transactional
     public CartItemResponse createCartItem(CartItemServiceRequest request) {
-        Product product = ServiceUtil.findProduct(request.getProductId());
+        Product product = serviceUtil.findProduct(request.getProductId());
         Member loginMember = request.getMember();
         /* 장바구니에 이미 상품이 있으면 수량 +n */
         Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(product.getProductId(), loginMember);
@@ -51,9 +52,9 @@ public class CartService {
 
     @Transactional
     public MyCartResponse updateCartItem(CartItemServiceRequest request) {
-        Product product = ServiceUtil.findProduct(request.getProductId());
+        Product product = serviceUtil.findProduct(request.getProductId());
         Member loginMember = request.getMember();
-        CartItem savedCartItem = ServiceUtil.findCartItem(product.getProductId(), loginMember);
+        CartItem savedCartItem = serviceUtil.findCartItem(product.getProductId(), loginMember);
 
         savedCartItem.updateQuantity(request.getQuantity());
 

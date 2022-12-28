@@ -4,9 +4,7 @@ import com.example.jejuiiin.controller.request.*;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Order;
 import com.example.jejuiiin.domain.Product;
-import com.example.jejuiiin.service.util.ServiceUtil;
 
-import java.util.List;
 
 public class OrderMapper {
 
@@ -22,11 +20,9 @@ public class OrderMapper {
                 .build();
     }
 
-    public static OrderSave toOrderSave(OrderItem orderItem, Member member){
+    public static OrderSave toOrderSave(OrderItem orderItem, Member member, Product product){
         Long productId = orderItem.getProductId();
         int quantity = orderItem.getQuantity();
-        Product product = ServiceUtil.findProduct(productId);
-
         return OrderSave.builder()
                 .member(member)
                 .productId(productId)
