@@ -2,6 +2,7 @@ package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.request.OrderItem;
 import com.example.jejuiiin.controller.request.OrderSave;
+import com.example.jejuiiin.controller.response.OrderHistoryResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Order;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -51,5 +53,22 @@ public class OrderService {
             CartItem cartItem = serviceUtil.findCartItem(orderItem.getProductId(), member);
             cartRepository.deleteById(cartItem.getCartItemId());
         }
+    }
+
+    /* 주문 내역 조회 */
+    @Transactional(readOnly = true)
+    public List<OrderHistoryResponse> showMyOrderHistory(UserDetails userDetails) {
+        String loginId = userDetails.getUsername();
+        Member member = serviceUtil.findMember(loginId);
+
+        List<Order> orderList = orderRepository.findAllByMember(member);
+        List<OrderHistoryResponse> orderHistoryList = new ArrayList<>();
+
+        for(Order order : orderList){
+            OrderHistoryResponse orderHistoryResponse = OrderMapper.toOrderHistoryResponse(order);
+            orderHistoryList.add(orderHistoryResponse);
+        }
+
+        return orderHistoryList;
     }
 }

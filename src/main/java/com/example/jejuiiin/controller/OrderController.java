@@ -2,15 +2,15 @@ package com.example.jejuiiin.controller;
 
 import com.example.jejuiiin.controller.request.OrderItem;
 import com.example.jejuiiin.controller.request.OrderRequest;
+import com.example.jejuiiin.controller.response.MyCartResponse;
+import com.example.jejuiiin.controller.response.OrderHistoryResponse;
 import com.example.jejuiiin.controller.response.Response;
+import com.example.jejuiiin.security.UserDetailsImpl;
 import com.example.jejuiiin.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,9 +33,15 @@ public class OrderController {
         /* 상세 페이지에서 상품을 구매했을 경우 */
         else {
             OrderItem orderItem = productList.get(0);
-            orderService.order( orderItem, userDetails);
+            orderService.order(orderItem, userDetails);
         }
 
         return new Response(200, "주문이 완료되었습니다.", null);
+    }
+
+    @GetMapping
+    public Response showMyOrderHistory(@AuthenticationPrincipal UserDetails userDetails) {
+        List<OrderHistoryResponse> data = orderService.showMyOrderHistory(userDetails);
+        return new Response(200, "주문 내역 조회 성공", data);
     }
 }
