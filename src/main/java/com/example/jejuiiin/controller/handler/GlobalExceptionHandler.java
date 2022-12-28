@@ -38,9 +38,9 @@ public class GlobalExceptionHandler {
         return Response.fail(BAD_REQUEST.value(), e.getMessage());
     }
 
-	@ResponseStatus(INTERNAL_SERVER_ERROR)
+	@ResponseStatus(BAD_REQUEST)
 	@ExceptionHandler(OAuth2LoginException.class)
 	public Response<?> handle(OAuth2LoginException e) {
-		return Response.fail(INTERNAL_SERVER_ERROR.value(), e.getMessage());
+		return Response.fail(BAD_REQUEST.value(), e.getMessage());
 	}
 }
