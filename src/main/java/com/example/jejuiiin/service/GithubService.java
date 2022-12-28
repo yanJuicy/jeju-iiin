@@ -138,7 +138,12 @@ public class GithubService {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			return objectMapper.readTree(responseBody);
+			JsonNode jsonNode = objectMapper.readTree(responseBody);
+			if (jsonNode.get("error") != null) {
+				String errorDescription = jsonNode.get("error_description").asText();
+				throw new OAuth2LoginException(errorDescription);
+			}
+			return jsonNode;
 		} catch (JsonProcessingException e) {
 			log.error(e.getMessage());
 			throw new OAuth2LoginException(e.getMessage());
