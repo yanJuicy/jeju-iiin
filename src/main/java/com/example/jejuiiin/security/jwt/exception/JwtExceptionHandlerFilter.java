@@ -1,5 +1,7 @@
 package com.example.jejuiiin.security.jwt.exception;
 
+import static com.example.jejuiiin.controller.exception.ExceptionMessage.EXPIRED_TOKEN_MSG;
+
 import com.example.jejuiiin.controller.response.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +24,18 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (CustomSecurityException ex){
+            if (ex.getExceptionMessage().equals(EXPIRED_TOKEN_MSG) && isLoginRequest(request)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
             log.error(ex.getExceptionMessage().getMsg());
             setErrorResponse(response, ex);
         }
+    }
+
+    private boolean isLoginRequest(HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        return requestURI.contains("login");
     }
 
     private void setErrorResponse(HttpServletResponse httpServletResponse,
