@@ -30,6 +30,7 @@ public class CartMapper {
 
     public static MyCartResponse toMyCartResponse(CartItem cartItem) {
         return MyCartResponse.builder()
+                .cartItemId(cartItem.getCartItemId())
                 .productId(cartItem.getProductId())
                 .thumbnailImgUrl(cartItem.getThumbnailImgUrl())
                 .name(cartItem.getName())

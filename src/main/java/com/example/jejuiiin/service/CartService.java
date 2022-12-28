@@ -68,6 +68,7 @@ public class CartService {
         return cartRepository.findByProductIdAndMember(productId, member)
                 .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
     }
+
     public List<MyCartResponse> showMyCart(UserDetailsImpl userDetails) {
         List<CartItem> cartItemList = cartRepository.findAllByMember(userDetails.getMember());
 
@@ -75,6 +76,7 @@ public class CartService {
 
         for(CartItem cartItem : cartItemList){
             MyCartResponse response = MyCartResponse.builder()
+                    .cartItemId(cartItem.getCartItemId())
                     .productId(cartItem.getProductId())
                     .thumbnailImgUrl(cartItem.getThumbnailImgUrl())
                     .name(cartItem.getName())
