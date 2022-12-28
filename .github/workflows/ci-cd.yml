@@ -46,7 +46,18 @@ jobs:
     # oauth login secret 로딩 및 social 파일 생성
     - run: touch ./src/main/resources/application-social.properties
     - run: echo "${{ secrets.OAUTH }}" > ./src/main/resources/application-social.properties   
-  
+
+      # Gradle 캐싱
+    - name: Gradle Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+
     # Gradle 권한 설정
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
