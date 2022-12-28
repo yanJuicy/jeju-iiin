@@ -48,4 +48,9 @@ public class Member {
         this.isSocial = isSocial;
         this.socialType = socialType;
     }
+
+    public Member socialType(SocialType socialType) {
+        this.socialType = socialType;
+        return this;
+    }
 }
