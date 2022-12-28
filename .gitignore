@@ -40,6 +40,9 @@ out/
 ## MySQL
 src/main/resources/application-dev.properties
 
+# Social
+src/main/resources/application-social.properties
+
 ## Jwt
 src/main/resources/security.properties
 

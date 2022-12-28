@@ -24,9 +24,13 @@ public enum ExceptionMessage {
     INVALID_PAGE_NUMBER_MSG(400,"페이지 값은 숫자입니다."),
 
     /* Cart */
-    NO_EXISTS_CART_ITEM_MSG(404, "장바구니에 해당 상품이 존재하지 않습니다.");
+    NO_EXISTS_CART_ITEM_MSG(404, "장바구니에 해당 상품이 존재하지 않습니다."),
 
-    private final int statusCode;
+	/* OAuth */
+	FAIL_OAUTH_LOGIN_MSG(500, "소셜 로그인을 실패했습니다.");
+
+
+	private final int statusCode;
     private final String msg;
 
     ExceptionMessage(final int statusCode, final String msg) {
