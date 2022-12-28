@@ -48,7 +48,7 @@ public class KakaoService {
         // 4. JWT 토큰 반환
         String createToken =  jwtUtil.createAccessToken(kakaoMember.getName());
         response.addHeader(JwtUtil.AUTHORIZATION_ACCESS, createToken);
-        return new Response(200, "로그인 성공", createToken);
+        return new Response(200, "카카오 로그인 성공", createToken);
     }
 
     // 1. "인가 코드"로 "액세스 토큰" 요청
@@ -92,23 +92,15 @@ public class KakaoService {
         // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> kakaoMemberInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();
-        ResponseEntity<String> response = rt.exchange(
-                "https://kapi.kakao.com/v2/user/me",
-                HttpMethod.POST,
-                kakaoMemberInfoRequest,
-                String.class
+        ResponseEntity<String> response = rt.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.POST, kakaoMemberInfoRequest, String.class
         );
 
         String responseBody = response.getBody();
-        System.out.println(responseBody);
-        System.out.println(response);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
         String id = jsonNode.get("id").asText();
-        String name = jsonNode.get("properties")
-                .get("nickname").asText();
-        String email = jsonNode.get("kakao_account")
-                .get("email").asText();
+        String name = jsonNode.get("properties").get("nickname").asText();
+        String email = jsonNode.get("kakao_account").get("email").asText();
 
         return new SocialMemberInfo(id, email, name);
     }
@@ -120,20 +112,9 @@ public class KakaoService {
         Member kakaoMember = memberRepository.findByLoginId(kakaoId)
                 .orElse(null);
         if (kakaoMember == null) {
-            // 카카오 사용자 email 동일한 email 가진 회원이 있는지 확인
             String kakaoEmail = kakaoMemberInfo.getEmail();
-            Member sameEmailMember = memberRepository.findByEmail(kakaoEmail).orElse(null);
-            if (sameEmailMember != null) {
-                kakaoMember = sameEmailMember;
-                // 기존 회원정보에 카카오 Id 추가
-                kakaoMember = kakaoMember.socialType(SocialType.KAKAO);
-
-            } else {
-                // 신규 회원가입
-
-                // password: random UUID
-                String password = UUID.randomUUID().toString();
-                String encodedPassword = passwordEncoder.encode(password);
+            String password = UUID.randomUUID().toString();
+            String encodedPassword = passwordEncoder.encode(password);
 
                 kakaoMember = Member.builder()
                         .name(kakaoMemberInfo.getName())
@@ -142,7 +123,6 @@ public class KakaoService {
                         .email(kakaoEmail)
                         .socialType(SocialType.KAKAO)
                         .build();
-            }
 
             memberRepository.save(kakaoMember);
         }
