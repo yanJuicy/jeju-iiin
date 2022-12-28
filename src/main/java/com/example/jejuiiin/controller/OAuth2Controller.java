@@ -25,10 +25,7 @@ public class OAuth2Controller {
 	}
 
 	@GetMapping("/login/kakao")
-	public Response<?> kakaoLogin(@RequestParam String code
-			, HttpServletResponse response)
-			throws JsonProcessingException {
-
+	public Response<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
 		return kakaoService.kakaoLogin(code, response);
 	}
 
