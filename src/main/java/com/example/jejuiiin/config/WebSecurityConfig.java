@@ -1,4 +1,4 @@
-package com.example.jejuiiin.security;
+package com.example.jejuiiin.config;
 
 import com.example.jejuiiin.security.jwt.JwtAuthFilter;
 import com.example.jejuiiin.security.jwt.JwtUtil;
