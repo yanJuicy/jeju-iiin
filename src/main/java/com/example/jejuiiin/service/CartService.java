@@ -84,9 +84,12 @@ public class CartService {
                     .quantity(cartItem.getQuantity())
                     .summation(cartItem.getSummation())
                     .build();
-
             list.add(response);
         }
         return list;
+    }
+
+    public void deleteById(Long cartItemId) {
+        cartRepository.deleteById(cartItemId);
     }
 }
