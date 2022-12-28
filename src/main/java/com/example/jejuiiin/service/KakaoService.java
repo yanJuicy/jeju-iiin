@@ -100,11 +100,13 @@ public class KakaoService {
         );
 
         String responseBody = response.getBody();
+        System.out.println(responseBody);
+        System.out.println(response);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
         String id = jsonNode.get("id").asText();
         String name = jsonNode.get("properties")
-                .get("name").asText();
+                .get("nickname").asText();
         String email = jsonNode.get("kakao_account")
                 .get("email").asText();
 
