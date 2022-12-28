@@ -2,6 +2,7 @@ package com.example.jejuiiin.mapper;
 
 import com.example.jejuiiin.controller.request.CartItemRequest;
 import com.example.jejuiiin.controller.request.CartItemServiceRequest;
+import com.example.jejuiiin.controller.response.MyCartResponse;
 import com.example.jejuiiin.domain.CartItem;
 import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
@@ -25,6 +26,17 @@ public class CartMapper {
                                                                   UserDetailsImpl userDetails) {
         return new CartItemServiceRequest(cartItemRequest.getProductId(), cartItemRequest.getQuantity(),
                 userDetails.getMember());
+    }
+
+    public static MyCartResponse toMyCartResponse(CartItem cartItem) {
+        return MyCartResponse.builder()
+                .productId(cartItem.getProductId())
+                .thumbnailImgUrl(cartItem.getThumbnailImgUrl())
+                .name(cartItem.getName())
+                .sellingPrice(cartItem.getSellingPrice())
+                .quantity(cartItem.getQuantity())
+                .summation(cartItem.getSummation())
+                .build();
     }
 
 }

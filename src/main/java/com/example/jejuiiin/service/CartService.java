@@ -49,14 +49,14 @@ public class CartService {
     }
 
     @Transactional
-    public CartItemResponse updateCartItem(CartItemServiceRequest request) {
+    public MyCartResponse updateCartItem(CartItemServiceRequest request) {
         Product product = findProduct(request.getProductId());
         Member loginMember = request.getMember();
         CartItem savedCartItem = findCartItem(product.getProductId(), loginMember);
 
         savedCartItem.updateQuantity(request.getQuantity());
 
-        return new CartItemResponse(savedCartItem.getCartItemId());
+        return CartMapper.toMyCartResponse(savedCartItem);
     }
 
     private Product findProduct(Long productId) {
