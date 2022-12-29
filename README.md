@@ -1,18 +1,20 @@
 # 재주 상회 clone
 
 # 개발 기술
-![JAVA_17](https://img.shields.io/badge/JAVA_11-blue?style=flat&logo=OpenJDK&logoColor=000000)
+![JAVA](https://img.shields.io/badge/JAVA_17-blue?style=flat&logo=OpenJDK&logoColor=000000)
 ![Gradle](https://img.shields.io/badge/Gradle_7.6-02303A.svg?style=Plastic&logo=Gradle&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=Plastic&logo=JSON%20web%20tokens)
-![MySQL](https://img.shields.io/badge/MySQL%208-%234479A1?logo=mysql&logoColor=white)
 
-![spring_Boot_2](https://img.shields.io/badge/spring_Boot_2.7.3-%236DB33F.svg?style=Plastic&logo=SpringBoot&logoColor=white)
+![spring_Boot](https://img.shields.io/badge/spring_Boot_2.7.7-%236DB33F.svg?style=Plastic&logo=SpringBoot&logoColor=white)
 ![Spring_Web](https://img.shields.io/badge/Spring_Web-%236DB33F.svg?style=Plastic&logo=spring&logoColor=white)
 ![Spring_Data_Jpa](https://img.shields.io/badge/Spring_Data_Jpa-%236DB33F.svg?style=Plastic&logo=spring&logoColor=white)
 ![spring_Security](https://img.shields.io/badge/spring_Security-%236DB33F.svg?style=Plastic&logo=springsecurity&logoColor=white)
 
 ![Python](https://img.shields.io/badge/-python%203.8-%233776AB?logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/-Flask-%23000000?logo=flask&logoColor=white)
+
+![MySQL](https://img.shields.io/badge/MySQL%208-%234479A1?logo=mysql&logoColor=white)
+
+![JWT](https://img.shields.io/badge/JWT-black?style=Plastic&logo=JSON%20web%20tokens)
 
 ## 인프라
 ![AWS](https://img.shields.io/badge/EC2,RDS-%23FF9900.svg?style=Plastic&logo=amazon-aws&logoColor=white)
