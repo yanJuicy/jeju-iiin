@@ -1,13 +1,15 @@
 # 재주 상회 clone
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![Jinja](https://img.shields.io/badge/jinja-white.svg?style=for-the-badge&logo=jinja&logoColor=black)
-![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+# 개발 기술
+![JAVA_17](https://img.shields.io/badge/JAVA_11-blue?style=flat&logo=OpenJDK&logoColor=000000)
+![Gradle](https://img.shields.io/badge/Gradle_7.6-02303A.svg?style=Plastic&logo=Gradle&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?style=Plastic&logo=JSON%20web%20tokens)
+
+![spring_Boot_2](https://img.shields.io/badge/spring_Boot_2.7.1-%236DB33F.svg?style=Plastic&logo=SpringBoot&logoColor=white)
+![Spring_Web](https://img.shields.io/badge/Spring_Web-%236DB33F.svg?style=Plastic&logo=spring&logoColor=white)
+![Spring_Data_Jpa](https://img.shields.io/badge/Spring_Data_Jpa-%236DB33F.svg?style=Plastic&logo=spring&logoColor=white)
+![spring_Security](https://img.shields.io/badge/spring_Security-%236DB33F.svg?style=Plastic&logo=springsecurity&logoColor=white)
+
 
 # 1. 팀 소개
 - [이한주](https://github.com/yanJuicy)
