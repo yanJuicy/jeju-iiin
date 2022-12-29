@@ -35,7 +35,8 @@
 
 # 2. 프로젝트 구조
 ## 백엔드 구조
-![image](https://user-images.githubusercontent.com/43159295/209932790-95ee6b9c-c4fb-40e2-8590-389837b02926.png)
+![image](https://user-images.githubusercontent.com/43159295/209940959-39f92181-cb07-427f-b9e5-0e0cd211cb19.png)
+
 
 ## CI CD 구조
 ![image](https://user-images.githubusercontent.com/43159295/209932854-ff7fe326-884a-4fe0-a68d-46abc2847a42.png)
