@@ -1,0 +1,10 @@
+{
+  "RDS": {
+    "HOST": "host",
+    "SCHEMA": "schema",
+    "USERNAME": "username",
+    "PASSWORD": "password"
+  },
+
+  "ADMIN" : "admin password"
+}
