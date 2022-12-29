@@ -27,9 +27,9 @@
 
 # 1. 팀 소개
 - [이한주](https://github.com/yanJuicy)
-- [이한주](https://github.com/yanJuicy)
-- [이한주](https://github.com/yanJuicy)
-- [이한주](https://github.com/yanJuicy)
+- [김민호](https://github.com/minokim1080)
+- [이진홍](https://github.com/sooni2)
+- [황보석](https://github.com/seok6086)
 
 # 2. 프로젝트 구조
 ## 백엔드 구조
