@@ -3,13 +3,17 @@ import sys
 import requests
 import pymysql
 from bs4 import BeautifulSoup
+import json
+
+with open('config.json', 'r') as f:
+    config = json.loads(f.read())
 
 # RDS info
-host = 'rds endpoint'
-database = 'rds db'
+host = config['RDS']['HOST']
+database = config['RDS']['SCHEMA']
 port = 3306
-username = 'mysql db username'
-password = 'mysql user password'
+username = config['RDS']['USERNAME']
+password = config['RDS']['PASSWORD']
 
 def connection_RDS(host, port, database, username, password):
     try:
@@ -51,7 +55,8 @@ def crawl(category_url, category, sub_category, page):
 
         # thumbnail img
         img = detail_soup.select_one('div.thumbnail > a > img')['src']
-        img = 'http:' + img
+        if 'http' not in img:
+            img = 'http:' + img
 
         # product name
         name = detail_soup.select_one('div.product_title').text.strip()
@@ -65,7 +70,8 @@ def crawl(category_url, category, sub_category, page):
 
         # product detail_img_url
         detail_img_url = detail_soup.select_one('#prdDetail div.cont img')['ec-data-src']
-        detail_img_url = 'http://iiinjeju.com' + detail_img_url
+        if 'http' not in detail_img_url:
+            detail_img_url = 'http://iiinjeju.com' + detail_img_url
 
         print('category', category)
         print('subCategory', sub_category)
@@ -87,21 +93,21 @@ def crawl(category_url, category, sub_category, page):
 
 
 # magazine, iiin
-crawl('http://iiinjeju.com/category/iiin/29/?page=1', 'MAGAZINE', 'IIIN', 1)
-# magazine, finders
-crawl('https://iiinjeju.com/category/finders/30/?page=1', 'MAGAZINE', 'FINDERS', 1)
-# shop, art
-crawl('https://iiinjeju.com/category/art/43/?page=1', 'SHOP', 'ART', 1)
-# shop, book
-crawl('https://iiinjeju.com/category/book/34/?page=1', 'SHOP', 'BOOK', 1)
-# shop, food
-crawl('https://iiinjeju.com/category/food/35/?page=1', 'SHOP', 'FOOD', 1)
-# shop, goods
-crawl('https://iiinjeju.com/category/goods/42/?page=1', 'SHOP', 'GOODS', 1)
-# shop, 한림수직
-crawl('https://iiinjeju.com/category/%ED%95%9C%EB%A6%BC%EC%88%98%EC%A7%81/51/?page=1', 'SHOP', 'HANLIMSUGIC', 1)
-# shop, reservation
-crawl('https://iiinjeju.com/category/reservation/53/?page=1', 'SHOP', 'GOODS', 1)
+# crawl('http://iiinjeju.com/category/iiin/29/?page=1', 'MAGAZINE', 'IIIN', 1)
+# # magazine, finders
+# crawl('https://iiinjeju.com/category/finders/30/?page=1', 'MAGAZINE', 'FINDERS', 1)
+# # shop, art
+# crawl('https://iiinjeju.com/category/art/43/?page=1', 'SHOP', 'ART', 1)
+# # shop, book
+# crawl('https://iiinjeju.com/category/book/34/?page=1', 'SHOP', 'BOOK', 1)
+# # shop, food
+# crawl('https://iiinjeju.com/category/food/35/?page=1', 'SHOP', 'FOOD', 1)
+# # shop, goods
+# crawl('https://iiinjeju.com/category/goods/42/?page=1', 'SHOP', 'GOODS', 1)
+# # shop, 한림수직
+# crawl('https://iiinjeju.com/category/%ED%95%9C%EB%A6%BC%EC%88%98%EC%A7%81/51/?page=1', 'SHOP', 'HANLIMSUGIC', 1)
+# # shop, reservation
+# crawl('https://iiinjeju.com/category/reservation/53/?page=1', 'SHOP', 'GOODS', 1)
 
 
 # 크롤링 연습 코드
