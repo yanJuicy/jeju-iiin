@@ -9,7 +9,7 @@ name: jeju-iiin CI
 
 on:
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "" ]
 
 permissions:
   contents: read
