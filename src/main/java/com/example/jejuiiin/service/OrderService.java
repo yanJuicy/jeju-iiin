@@ -55,6 +55,21 @@ public class OrderService {
         }
     }
 
+    /* 장바구니에 있는 상품 주문하기 쿼리 테스트용 */
+    @Transactional
+    public void orderCartItemTest(List<OrderItem> productList, UserDetails userDetails) {
+        String loginId = userDetails.getUsername();
+        Member member = serviceUtil.findMember(loginId);
+        List<Long> productIdList = new ArrayList<>();
+
+        for(OrderItem orderItem : productList){
+            order(orderItem, userDetails);
+            productIdList.add(orderItem.getProductId());
+        }
+
+        cartRepository.deleteAllByProductIdInQuery(productIdList);
+    }
+
     /* 주문 내역 조회 */
     @Transactional(readOnly = true)
     public List<OrderHistoryResponse> showMyOrderHistory(UserDetails userDetails) {

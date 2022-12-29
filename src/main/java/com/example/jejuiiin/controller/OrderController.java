@@ -39,6 +39,25 @@ public class OrderController {
         return new Response(200, "주문이 완료되었습니다.", null);
     }
 
+    /* 쿼리 테스트용 API */
+    @PostMapping("/test")
+    public Response orderTest(@RequestBody OrderRequest orderRequest, @AuthenticationPrincipal UserDetails userDetails){
+        List<OrderItem> productList = orderRequest.getProductList();
+
+        /* 장바구니의 상품을 구매했을 경우 */
+        if(orderRequest.isInCart()){
+            orderService.orderCartItemTest(productList, userDetails);
+        }
+
+        /* 상세 페이지에서 상품을 구매했을 경우 */
+        else {
+            OrderItem orderItem = productList.get(0);
+            orderService.order(orderItem, userDetails);
+        }
+
+        return new Response(200, "주문이 완료되었습니다.", null);
+    }
+
     @GetMapping
     public Response showMyOrderHistory(@AuthenticationPrincipal UserDetails userDetails) {
         List<OrderHistoryResponse> data = orderService.showMyOrderHistory(userDetails);
