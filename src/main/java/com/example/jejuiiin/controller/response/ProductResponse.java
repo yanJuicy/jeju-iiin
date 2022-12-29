@@ -1,6 +1,5 @@
 package com.example.jejuiiin.controller.response;
 
-import com.example.jejuiiin.domain.Product;
 import lombok.Builder;
 import lombok.Getter;
 
