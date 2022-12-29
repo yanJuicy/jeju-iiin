@@ -11,6 +11,7 @@ import com.example.jejuiiin.repository.CartRepository;
 import com.example.jejuiiin.repository.ProductRepository;
 
 import com.example.jejuiiin.security.UserDetailsImpl;
+import com.example.jejuiiin.service.util.ServiceUtil;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -29,11 +30,12 @@ import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXIS
 public class CartService {
 
     private final CartRepository cartRepository;
-    private final ProductRepository productRepository;
+    private final ServiceUtil serviceUtil;
+
 
     @Transactional
     public CartItemResponse createCartItem(CartItemServiceRequest request) {
-        Product product = findProduct(request.getProductId());
+        Product product = serviceUtil.findProduct(request.getProductId());
         Member loginMember = request.getMember();
         /* 장바구니에 이미 상품이 있으면 수량 +n */
         Optional<CartItem> savedCartItem = cartRepository.findByProductIdAndMember(product.getProductId(), loginMember);
@@ -50,23 +52,13 @@ public class CartService {
 
     @Transactional
     public MyCartResponse updateCartItem(CartItemServiceRequest request) {
-        Product product = findProduct(request.getProductId());
+        Product product = serviceUtil.findProduct(request.getProductId());
         Member loginMember = request.getMember();
-        CartItem savedCartItem = findCartItem(product.getProductId(), loginMember);
+        CartItem savedCartItem = serviceUtil.findCartItem(product.getProductId(), loginMember);
 
         savedCartItem.updateQuantity(request.getQuantity());
 
         return CartMapper.toMyCartResponse(savedCartItem);
-    }
-
-    private Product findProduct(Long productId) {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_PRODUCT_MSG.getMsg()));
-    }
-
-    private CartItem findCartItem(Long productId, Member member) {
-        return cartRepository.findByProductIdAndMember(productId, member)
-                .orElseThrow(() -> new NoSuchElementException(NO_EXISTS_CART_ITEM_MSG.getMsg()));
     }
 
     public List<MyCartResponse> showMyCart(UserDetailsImpl userDetails) {
