@@ -51,8 +51,8 @@ public class CartController {
 
     @DeleteMapping
     public Response<?> deleteCartItem(@RequestBody DeleteCartItemRequest deleteCartItemRequest, @AuthenticationPrincipal UserDetailsImpl userDetails){
-      cartService.deleteById(deleteCartItemRequest.getCartItemId()); //여기서 이미 입력받은 카트아이템 아이디 값이 삭제되니깐
-      List<MyCartResponse> data = cartService.showMyCart(userDetails); // 리스트를 조회 할 떄에는 카트아이템 아이디가 아닌 다른 걸로 찾아야함
+      cartService.deleteByIdList(deleteCartItemRequest);
+      List<MyCartResponse> data = cartService.showMyCart(userDetails);
        return Response.success(200,"선택상품 삭제 완료",data);
     }
 }

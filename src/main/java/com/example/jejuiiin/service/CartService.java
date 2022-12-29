@@ -1,6 +1,7 @@
 package com.example.jejuiiin.service;
 
 import com.example.jejuiiin.controller.request.CartItemServiceRequest;
+import com.example.jejuiiin.controller.request.DeleteCartItemRequest;
 import com.example.jejuiiin.controller.response.CartItemResponse;
 import com.example.jejuiiin.controller.response.MyCartResponse;
 import com.example.jejuiiin.domain.CartItem;
@@ -8,7 +9,6 @@ import com.example.jejuiiin.domain.Member;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.mapper.CartMapper;
 import com.example.jejuiiin.repository.CartRepository;
-import com.example.jejuiiin.repository.ProductRepository;
 
 import com.example.jejuiiin.security.UserDetailsImpl;
 import com.example.jejuiiin.service.util.ServiceUtil;
@@ -19,11 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-
-import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXISTS_CART_ITEM_MSG;
-import static com.example.jejuiiin.controller.exception.ExceptionMessage.NO_EXISTS_PRODUCT_MSG;
 
 @Service
 @RequiredArgsConstructor
@@ -81,7 +77,13 @@ public class CartService {
         return list;
     }
 
-    public void deleteById(Long cartItemId) {
-        cartRepository.deleteById(cartItemId);
+    @Transactional
+    public void deleteByIdList(DeleteCartItemRequest deleteCartItemRequest) {
+        List<Long> deleteCartItem = deleteCartItemRequest.getCartItemIdList();
+
+        for(int i = 0; i<deleteCartItem.size(); i++){
+
+         cartRepository.deleteById(deleteCartItem.get(i));
+        }
     }
 }
