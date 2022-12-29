@@ -49,7 +49,7 @@ public class CartController {
         return Response.success(200, "장바구니 조회 성공", data);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/items")
     public Response<?> deleteCartItem(@RequestBody DeleteCartItemRequest deleteCartItemRequest, @AuthenticationPrincipal UserDetailsImpl userDetails){
       cartService.deleteByIdList(deleteCartItemRequest);
       List<MyCartResponse> data = cartService.showMyCart(userDetails);
