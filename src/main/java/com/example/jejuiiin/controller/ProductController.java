@@ -18,7 +18,6 @@ import com.example.jejuiiin.controller.response.CategoryProductResponseData;
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.controller.response.Response;
 import com.example.jejuiiin.domain.Product;
-import com.example.jejuiiin.mapper.ProductDetailResponse;
 import com.example.jejuiiin.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -41,9 +40,9 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}")
-    public Response getProduct(@PathVariable Long productId) {
-        ProductDetailResponse productdetail = productService.getProduct(productId);
-        Response<ProductDetailResponse> response = new Response<>(200, "제품 상세조회 성공", productdetail);
+    public Response<?> getProduct(@PathVariable Long productId) {
+        ProductResponse productdetail = productService.getProduct(productId);
+        Response<ProductResponse> response = new Response<>(200, "제품 상세조회 성공", productdetail);
         return response;
 
     }

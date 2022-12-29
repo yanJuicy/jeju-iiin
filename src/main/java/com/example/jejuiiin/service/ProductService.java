@@ -4,14 +4,13 @@ import static com.example.jejuiiin.domain.ProductCategory.MAGAZINE;
 import static com.example.jejuiiin.domain.ProductCategory.SHOP;
 import static com.example.jejuiiin.domain.ProductSubCategory.FINDERS;
 import static com.example.jejuiiin.domain.ProductSubCategory.IIIN;
+import static com.example.jejuiiin.mapper.ProductMapperMapStruct.PRODUCT_MAPPER;
 
 import com.example.jejuiiin.controller.request.FindCategoryProductRequest;
 import com.example.jejuiiin.controller.response.ProductResponse;
 import com.example.jejuiiin.domain.Product;
 import com.example.jejuiiin.domain.ProductCategory;
 import com.example.jejuiiin.domain.ProductSubCategory;
-import com.example.jejuiiin.mapper.ProductDetailResponse;
-import com.example.jejuiiin.mapper.ProductMapper;
 import com.example.jejuiiin.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,21 +30,19 @@ import java.util.NoSuchElementException;
 public class ProductService {
 
     private final ProductRepository productRepository;
-    private final ProductMapper productMapper;
 
     /* 새 상품 나열하기 */
     public List<ProductResponse> getNewProducts() {
-        List<ProductResponse> list = new ArrayList<>();
         List<Product> products = productRepository.findTop4ByOrderByProductIdDesc();
-        for (Product product : products) {
-            list.add(productMapper.toResponse(product));
-        }
-        return list;
+        return products.stream()
+                .map(PRODUCT_MAPPER::productToProductResponse)
+                .toList();
     }
 
-    public ProductDetailResponse getProduct(Long productId) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new NoSuchElementException());
-        return productMapper.toDetailResponse(product);
+    public ProductResponse getProduct(Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException());
+        return PRODUCT_MAPPER.productToProductResponse(product);
     }
 
     @Transactional(readOnly = true)
