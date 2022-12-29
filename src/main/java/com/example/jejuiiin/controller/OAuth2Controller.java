@@ -24,7 +24,7 @@ public class OAuth2Controller {
 		return new Response<>(200, "깃허브 로그인이 완료되었습니다.", null);
 	}
 
-	@GetMapping("/login/kakao")
+	@PostMapping("/login/kakao")
 	public Response<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
 		return kakaoService.kakaoLogin(code, response);
 	}
